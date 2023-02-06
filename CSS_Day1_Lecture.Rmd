@@ -1,0 +1,482 @@
+---
+title: "CSS Camp Day 1 Lecture"
+author: "Jong Hee Park"
+date: '2023-02-03'
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, prompt = TRUE, collapse = TRUE)
+```
+
+
+# 계산사회과학이란 무엇인가? 
+
+## 개념 
+- 계산사회과학은 디지털화된 정보와 계산통계적인 방법을 이용한 사회 현상 연구 (the study of social phenomena using digitized information and computational and statistical methods)
+
+- 자살은 왜 일어나는가? 
+
+- 계산사회과학자라면 먼저 자살에 대한 모든 자료를 수집한다. 자살에 대한 인구통계학적 자료, 자살과 관련된 온라인 동호회의 게시물, 자살 장소나 방법에 대한 정보, 자살 이후의 주변인 또는 사회의 반응에 대한 자료, 자살 직전의 생애자료 (일기, 건강기록, 가정환경, 사회적 관계 등)
+
+- SNS는 정치적 양극화를 확대하는가? 
+
+- 무역은 어떤 상황에서 정치적 영향력의 도구가 될 수 있는가? 
+
+- 연구질문을 던지고 이에 대한 가장 정확하고 체계적인 답변을 보여줄 수 있는 이상적 자료가 무엇인지를 생각한다. 
+
+- 그 이상적 자료에 가장 근접한 자료를 실제 자료로부터 탐색한다. 
+
+- 이와 같은 질문에 답하기 위해, 컴퓨터 프로그래밍 언어, 디지털화된 정보, 그리고 계산통계학적 방법을 이용하는 전과정이 바로 계산사회과학이다.
+
+## 계산사회과학에 대한 오해
+
+- 수치화된 정보만 사용한다. 
+
+- 제한된 질문만 답할 수 있다. 
+
+- 경제학이나 통계학의 하위 분과이다. 
+
+- 해석이나 예측에 취약하다. 
+
+- 컴퓨터에 대한 해박한 지식이 있어야 한다. 
+
+- 수학을 잘못하면 하기 어렵다. 
+
+- 취업이나 진학에 별도움이 안된다. 
+
+- 기계학습이나 인공지능을 배우는 것이 낫다. 
+
+## 왜 R을 사용하는가?
+
+- **R**은 통계연산과 그래픽을 전문으로 하는 프로그래밍 언어이다. 주로 사회과학과 통계학에서 가장 광범위하게 사용되고 있으며 산업계에서도 광범위하게 사용된다. 
+
+- R은 CRAN(the **c**omprehensive **R** **a**rchive **n**etwork)에서 관리하고 배포한다. 
+
+- CRAN은 다양한 미러서버로 서비스되고 있다. 미러는 클라우드 서버(<https://cloud.r-project.org>)를 선택하는 것이 좋다. 
+
+- R과 패키지들은 종종 중요한 업데이트가 있으니 주기적으로 업데이트하는 것이 좋다. 
+
+## RStudio
+
+- RStudio는 **R** programming을 위한 통합개발환경(an integrated development environment, or IDE)
+
+- Download and install it from <http://www.rstudio.com/download>.
+
+- 장점은 에디터와 뷰어, 그리고 마크다운 등을 모두 함께 제동한다는 것이다. 
+
+- 무엇보다고 R 프로젝트 기능을 제공하는 것이 중요하다.
+
+- **R**에서 도움말을 찾는 방법은 `?`을 객체 앞에 붙이는 것 (e.g., `?plot`).
+
+- 도움말에 있는 Examples를 적극적으로 활용하자. 복붙해 보고 왜, 어떻게 작동하는지 이해하자. 
+
+# R 기본 
+
+## Working directory
+
+- 현재 작업디렉토리 확인
+```{r, eval = F}
+getwd()
+```
+
+- 작업디렉토리 설정
+
+```{r, eval = F}
+setwd("~/Dropbox/2023bootcamp")
+```
+
+- 현재 상태에서 모든 객체(objects) 확인
+```{r, eval=F}
+ls()
+```
+
+- 지우고 싶은 객체가 있다면, (`rm(**)`). 만약 모두 지우고 싶다면,
+```{r}
+rm(list=ls())
+```
+
+## Basic functions
+
+- 기본 사칙 연산 
+```{r calculations}
+4+2
+6*8
+(842-62)/3
+pi
+sin(c(0, 30, 45, 60, 90))
+cos(c(0, 30, 45, 60, 90))
+```
+
+## Vector
+
+- 자료를 구성하는 원자는 개별 정보(e.g. i의 몸무게)지만 분자는 벡터
+
+- 벡터는 스프레드시트 구조(테이블)의 자료를 생각할 때, 세로로 늘어트린 특정변수라고 생가할 수 있음
+
+- 벡터는 숫자, 문자 등 어떤 것으로도 구성될 수 있음
+
+```{r vectors}
+1:20
+c(1,2,3,4,5)
+seq(0,100,by=10)
+rep(1:5,5)
+rep("What a wonderful class!",4)
+```
+
+## Value Assignment
+
+- 객체에 어떤 값(value)를 할당할 수 있음
+
+- 객체 이름은 문자로 시작해야 하며 대소문자를 구별함
+
+- **R**의 고유한 객체를 피해서 이름을 지을 것
+
+- 이름을 잘 짓는 사람이 코드관리를 잘함
+
+```{r Values}
+x <- 1:10
+y <- c(1.5, 9, 3.46, 12.2)
+```
+
+## 벡터 부분 출력
+
+- 벡터의 일부분만 선택하고 싶을 때에는 벡터원소의 주소와 논리연산자(불 대수)를 이용하면 됨
+```{r print}
+x
+(x <- 1:10)
+x[1:5]
+y[c(2,4)]
+y[-c(2,3)]
+```
+
+## 벡터 연산
+
+- 1:10의 벡터에 3을 곱하면? 
+
+- 두 벡터를 이으려면?
+
+- 벡터원소의 제곱근은?
+
+``` {r arithmetic}
+x*3
+c(x,y)
+sqrt(x)
+```
+
+## 기본 함수들 
+
+- **R**에는 이미 다양한 기본 함수 연산자들이 존재
+
+- `sum()`, `mean()`, `sd()`, `min()`, `max()`, `median`, `range`, `quantile`, `summary` 등
+
+``` {r Vector functions}
+sum(x)
+summary(x)
+range(y)
+```
+
+## 행렬
+
+- 행렬은 길이가 동일한 벡터를 여러 개 결합해 놓은 것 
+
+- 줄과 열로 차원이 표시됨
+
+- 자료의 기본 구성단위는 벡터이고 기본 구조는 행렬
+
+``` {r Matrix1}
+test_matrix <- matrix(data = x, nrow = 4, ncol = 5)
+test_matrix
+superman <- matrix(data = x, nrow = 4, ncol = 5)
+```
+
+- 행렬원소는 줄과 열 번호를 통해 호출하며 논리연산자를 이용할 수 있다. 
+
+``` {r Matrix notation}
+#test_matrix(row,column)
+test_matrix[1,5]
+test_matrix[-1,5]
+test_matrix[,4]
+test_matrix[4,]
+test_matrix[3,c(2,4)]
+```
+
+## 데이터 프레임
+
+- **R**에서 데이터 프레임은 자료를 저장하는 특수한 행렬
+
+- 열은 변수, 줄은 관측치로 이루어짐
+
+``` {r Matrix notation3}
+countries <- c("United States", "Pakistan", "Ireland", "China")
+test_dataframe <- data.frame(test_matrix,countries)
+test_dataframe
+# Have I changed the file type?
+class(test_dataframe)
+```
+
+- 열 이름을 정의하자. 
+
+``` {r Dataframe rename}
+names(test_dataframe) <- c("Val1", "Val2", "Val3", "Val4", "Val5", "Countries")
+test_dataframe
+# Also see the colnames() function
+```
+
+- 데이터 프레임은 행렬 호출 방법과 같으나, 중요한 차이점은 변수 이름을 통해 열 전체를 불러낼 수 있다는 점
+
+``` {r Dataframe ref}
+test_dataframe[3,5]
+test_dataframe[,5]
+test_dataframe$Val5[3]
+test_dataframe$Val5
+test_dataframe[,"Val5"]
+```
+
+- 데이터 프레임의 크기를 알려면 행렬 크기 측정 방법을 사용
+
+``` {r Dataframe dims}
+nrow(test_dataframe)
+ncol(test_dataframe)
+dim(test_dataframe)
+```
+
+
+## Manipulating Dataframes
+
+- 우리는 `mtcars` 자료를 가지고 실습을 할 것이다.
+
+- The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models).
+
+```{r}
+data(mtcars)
+?mtcars
+```
+
+- 첫 10줄의 자료 
+```{r}
+head(mtcars, 10)
+```
+
+- 데이터의 기본 구조
+
+    - mpg	Miles/(US) gallon
+    - cyl	Number of cylinders
+    - hp	Gross horsepower
+    - wt	Weight (1000 lbs)
+```{r}
+str(mtcars)
+```
+
+- 수치 요약 
+
+```{r}
+summary(mtcars)
+```
+
+
+```{r}
+plot(mtcars)
+```
+
+## 상관계수 
+
+- 연비와 차 무게는 서로 관련되어 있는가? 
+
+```{r, echo = F}
+with(mtcars, cor.test(mpg, wt))
+```
+
+- 무게가 1000파운드 증가하면 연비가 얼마나 감소하나? 
+
+```{r}
+with(mtcars, plot(mpg ~ wt, xlab="Weight (1000 lbs)", ylab="MPG", main="MPG vs Weight"))
+```
+
+
+- 실린더("cyl")는 엔진의 실린더 수이다. 현재 아무런 정의가 없으면 연속변수로 취급되는데, 이를 명목변수로 만들어 보자.   
+
+- 원자료를 그대로 두기 위해, 새로운 자료로 복사해서 작업한다. 
+
+```{r}
+my_mtcars <- mtcars
+my_mtcars$cyl <- as.factor(my_mtcars$cyl)
+class(my_mtcars$cyl)
+```
+
+- 실린더별 연비 평균을 알고 싶다. `tapply`를 이용하면 쉽게 구할 수 있다.  
+```{r}
+?tapply
+tapply(my_mtcars$mpg, my_mtcars$cyl, mean)
+```
+
+- 박스플롯을 그려보자. 
+```{r}
+par(mfrow=c(1, 2))
+boxplot(my_mtcars$mpg, main = "mpg")
+boxplot(my_mtcars$wt, main = "weight")  
+```
+
+- 밖으로 나온 관측값을 알고 싶다면, 
+```{r}
+boxplot.stats(my_mtcars$wt)$out
+```
+
+
+
+
+## **dplyr**를 이용한 자료처리
+
+```{r}
+## install.packages("dplyr")
+library(dplyr)
+```
+
+- First, summarise the average miles/gallon (mpg) across the entire dataset. 
+
+```{r}
+mtcars %>%
+  summarise(mean = mean(mpg))
+```
+
+- A car can either have 4, 6, or 8 cylinders (cyl). Summarise the average mpg, broken down by the number of cylinders. Hint: You may want to "group" by cyl in order to do this. 
+
+```{r}
+mtcars %>%
+  group_by(cyl) %>%
+  summarise(mean = mean(mpg))
+```
+
+- In addition to the means, add standard deviations to this summary (still grouped by cyl).
+
+```{r}
+mtcars %>%
+  group_by(cyl) %>%
+  summarise(mean = mean(mpg), 
+            sd = sd(mpg))
+
+```
+
+- Visualize! Use ggplot (included in the tidyverse package) to make a scatter plot of mpg by horsepower. If you are feeling extra fancy, you can add a smoothing line. (Hint: Google "geom_smooth() scatterplot".)
+
+```{r}
+ggplot(mtcars, 
+       aes(x = hp, y = mpg)) + 
+  geom_point() + 
+  geom_smooth() 
+```
+
+## 시각화 (고급)
+
+```{r}
+## devtools::install_github("stemangiola/tidyHeatmap")
+## if (!require("BiocManager", quietly = TRUE))
+##     install.packages("BiocManager")
+## BiocManager::install("ComplexHeatmap")
+library(tidyHeatmap)
+library(tidyr)
+mtcars_tidy <- 
+    mtcars %>% 
+    as_tibble(rownames="Car name") %>% 
+    # Scale
+    mutate_at(vars(-`Car name`, -hp, -vs), scale) %>%
+    # tidyfy
+    pivot_longer(cols = -c(`Car name`, hp, vs), names_to = "Property", values_to = "Value")
+
+mtcars_heatmap <- 
+    mtcars_tidy %>% 
+    heatmap(`Car name`, Property, Value,    scale = "row"   ) %>%
+  add_tile(hp)
+    
+mtcars_heatmap
+
+mtcars_heatmap |> save_pdf("mtcars_heatmap.pdf")
+```
+
+# 선형회귀분석(Linear Regression)
+
+## 모형 
+
+- 독립변수: 무게
+- 종속변수: 연비  
+```{r}
+lm1 <- lm(mpg ~ wt, data = my_mtcars)
+```
+
+- 결과 
+
+```{r}
+summary(lm1)
+```
+
+- 두 변수의 관계: `r lm1$coefficients[[2]]`
+
+- This means that for each unit of weight (1000 pound) added to a car (1 ton) the miles per gallon it achieves is predicted to REDUCE by a value of `r abs(lm1$coefficients[[2]])`.
+
+- The intercept of `r lm1$coefficients[[1]]` sets the start of the regression line at the weight of zero. In this case, this isn't very useful (a car will not weigh zero tons) but it is a necessary element of describing a linear relationship. 
+
+- Here the equation for the line is mpg = 39.913 `r lm1$coefficients[[2]]` (wt). Note that you can call the individual coefficients from a model directly using, in this example "lm1$coefficients".
+
+- Now plot again a scatterplot of weight vs. mpg and draw the regression line, in <span style="color:blue">blue</span>. First return your graphing parameter to it's default setting of (1,1)
+
+```{r}
+par(mfrow=c(1, 1))
+plot(mpg ~ wt, data = my_mtcars)
+abline(lm1, col="blue")
+```
+## ggplot을 이용
+
+```{r}
+ggplot(mtcars, aes(x = hp, y = mpg)) + 
+   geom_point() + 
+   geom_smooth(method="lm") 
+```
+
+
+## 통제변수 
+
+- 종속변수에 영향을 주는 다른 변수들 
+
+- 생략되어서는 안되는 중요한 변수들은 반드시 포함시켜야 함
+
+- 그렇지 않은 누락변수로 인한 오차가 발생
+
+- 마력수가 중요한 연비의 결정요인이며 이를 누락하면 안된다면, 
+```{r}
+lm2 <- lm(mpg ~ wt + hp, data = mtcars)
+lm3 <- lm(mpg ~ hp, data = mtcars)
+summary(lm2)
+summary(lm3)
+```
+
+- "AIC"와 "BIC"와 같은 정보 상수들이 서로 포함관계에 있는 모형들(nested models)의 설명력 비교에 흔히 사용된다. 작을 수록 더 자료를 잘 설명한다는 것을 의미 
+
+```{r}
+AIC(lm1)
+AIC(lm2)
+AIC(lm3)
+```
+
+```{r}
+BIC(lm1)
+BIC(lm2)
+BIC(lm3)
+```
+
+- `lm2`가 괜찮은 모형이라고 할 때, 225마력과 4천파운드 무게의 차량의 연비를 계산해 보면? 
+```{r}
+nd <- data.frame(hp = 225, wt = 4.0)
+predict(lm2, newdata = nd, interval = "prediction", type = "response")
+```
+
+```{r}
+new <- data.frame(hp = 50:300, wt = 4.0)
+pred <- predict(lm2, new, interval = "prediction")
+matplot(new$hp, pred, lty = c(1,3,3), 
+        type = "l", xlab="Horse Power", ylab="Miles per gallon")
+
+```
+
+
+
